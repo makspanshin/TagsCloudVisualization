@@ -1,5 +1,8 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using TagsCloudVisualization.Interfaces;
 using TagsCloudVisualization.PreprocessorWords;
 
@@ -57,9 +60,17 @@ namespace TagsCloudVisualizationUnitTest
         }
 
         [Test]
-        public void Preprocessor_Correct_ShouldBe_Ok()
+        public void PreprocessorToLowercase_Correct_ShouldBe_Ok()
         {
+            PreprocessorToLowercase preprocessor = new PreprocessorToLowercase();
+            List<string> words = new List<string>() { "SAssss", "sssss", "SSSSSS", "ASDASDA" };
 
+            words = (List<string>)preprocessor.Correct(words);
+
+            foreach (var item in words)
+            {
+                item.Should().BeLowerCased();
+            }
         }
 
     }

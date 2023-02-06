@@ -54,12 +54,6 @@ namespace TagsCloudVisualizationUnitTest
         }
 
         [Test]
-        public void ApplePreprocessors_ShouldBe_Ok()
-        {
-
-        }
-
-        [Test]
         public void PreprocessorToLowercase_Correct_ShouldBe_Ok()
         {
             PreprocessorToLowercase preprocessor = new PreprocessorToLowercase();
@@ -72,6 +66,42 @@ namespace TagsCloudVisualizationUnitTest
                 item.Should().BeLowerCased();
             }
         }
+
+        [Test]
+        public void PreprocessorDeleteSmallWord_Dont_Should_Simple_Words()
+        {
+            IPreprocessor preprocessor = new PreprocessorDeleteSmallWord();
+            List<string> words = new List<string>() { "в", "ты", "на", "ASDASDA", "test", "он", };
+
+            words = (List<string>)preprocessor.Correct(words);
+
+            List<string> afteCorrectWords = new List<string>() {"ASDASDA", "test",};
+            words.Should().BeEquivalentTo(afteCorrectWords);
+        }
+
+        [Test]
+        public void ApplyPreprocessors_ShouldBe_Ok()
+        {
+            PreprocessorWords preprocessorWords = new PreprocessorWords();
+
+            IPreprocessor preprocessorToLowercase = new PreprocessorToLowercase();
+
+            IPreprocessor preprocessorDeleteSmallWord = new PreprocessorDeleteSmallWord();
+
+            preprocessorWords.AddPreprocessor(preprocessorToLowercase);
+
+            preprocessorWords.AddPreprocessor(preprocessorDeleteSmallWord);
+
+            List<string> words = new List<string>() { "в", "ты", "на", "ASDASDA", "test", "он", };
+            words = (List<string>)preprocessorWords.Apply(words);
+
+            List<string> afteCorrectWords = new List<string>() { "asdasda", "test", };
+
+            words.Should().BeEquivalentTo(afteCorrectWords);
+
+        }
+
+
 
     }
 }

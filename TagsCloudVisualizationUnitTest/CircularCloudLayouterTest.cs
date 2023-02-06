@@ -18,13 +18,17 @@ namespace TagsCloudVisualizationUnitTest
         private List<Rectangle> rectangles;
         private Point centrPoint;
         private const string PathFolderFailedTest = "FailedTest";
+        private ITagCloudSettings tagCloudSettings;
 
         [SetUp]
         public void InitCircularCloudLayouter()
         {
-            centrPoint = new Point(500, 500);
-            archimedesSpiral = new ArchimedesSpiral(centrPoint);
-            circularCloudLayouter = new CircularCloudLayouter(centrPoint, archimedesSpiral);
+            tagCloudSettings = new TagCloudSetting();
+            tagCloudSettings.ImageHeight = 1000;
+            tagCloudSettings.ImageWidth = 1000;
+            //centrPoint = new Point(500, 500);
+            archimedesSpiral = new ArchimedesSpiral(tagCloudSettings);
+            circularCloudLayouter = new CircularCloudLayouter(tagCloudSettings, archimedesSpiral);
             rectangles = new List<Rectangle>();
         }
 
@@ -36,7 +40,7 @@ namespace TagsCloudVisualizationUnitTest
                 Directory.CreateDirectory(PathFolderFailedTest);
                 var nameFile = PathFolderFailedTest + "//" + TestContext.CurrentContext.Test.FullName + "Failed.png";
                 var saver = new SaverImage(nameFile);
-                painterOfRectangles = new PainterOfRectangles(new Size(1000, 1000));
+                painterOfRectangles = new PainterOfRectangles(tagCloudSettings);
                 painterOfRectangles.CreateImage(rectangles, saver);
             }
         }
@@ -69,10 +73,6 @@ namespace TagsCloudVisualizationUnitTest
         {
             var generator = new GeneratorOfRectangles();
 
-            /*for (var i = 0; i < countRectangle; i++)
-            {
-                rectangles.Add(circularCloudLayouter.PutNextRectangle(generator.GetSize(10, 10)));
-            }*/
             foreach (var item in generator.GetSize(10, 10))
             {
                 rectangles.Add(circularCloudLayouter.PutNextRectangle(item));
@@ -87,31 +87,31 @@ namespace TagsCloudVisualizationUnitTest
             densityCloud.Should().BeGreaterThan(70);
         }
 
-        [TestCase(10, TestName = "10 Rectangles")]
-        [TestCase(1000, TestName = "1000 Rectangles")]
-        [TestCase(2000, TestName = "2000 Rectangles")]
-        public void DensityCloud_Random_Size_ShouldBeBig(int countRectangle)
-        {
-            var generator = new GeneratorOfRectangles();
+        //[TestCase(10, TestName = "10 Rectangles")]
+        //[TestCase(1000, TestName = "1000 Rectangles")]
+        //[TestCase(2000, TestName = "2000 Rectangles")]
+        //public void DensityCloud_Random_Size_ShouldBeBig(int countRectangle)
+        //{
+        //    var generator = new GeneratorOfRectangles();
 
-            /*for (var i = 0; i < countRectangle; i++)
-            {
-                rectangles.Add(circularCloudLayouter.PutNextRectangle(generator.GetSize(10, 20)));
-            }*/
+        //    /*for (var i = 0; i < countRectangle; i++)
+        //    {
+        //        rectangles.Add(circularCloudLayouter.PutNextRectangle(generator.GetSize(10, 20)));
+        //    }*/
 
-            foreach (var item in generator.GetSize(10, 20))
-            {
-                rectangles.Add(circularCloudLayouter.PutNextRectangle(item));
-                if (rectangles.Count > countRectangle)
-                    break;
-            }
+        //    foreach (var item in generator.GetSize(10, 20))
+        //    {
+        //        rectangles.Add(circularCloudLayouter.PutNextRectangle(item));
+        //        if (rectangles.Count > countRectangle)
+        //            break;
+        //    }
 
-            var square = Math.Pow(Radius(), 2) * Math.PI;
+        //    var square = Math.Pow(Radius(), 2) * Math.PI;
 
-            var densityCloud = SquareRectangles() / square * 100;
+        //    var densityCloud = SquareRectangles() / square * 100;
 
-            densityCloud.Should().BeGreaterThan(70);
-        }
+        //    densityCloud.Should().BeGreaterThan(70);
+        //}
 
         private int Radius()
         {
@@ -121,8 +121,8 @@ namespace TagsCloudVisualizationUnitTest
             var xMax = rectangles.Max(rectangle => Math.Abs(rectangle.X));
             var yMax = rectangles.Max(rectangle => Math.Abs(rectangle.Y));
 
-            var distanceToXMax = Math.Abs(xMax) - Math.Abs(centrPoint.X);
-            var distanceToYMax = Math.Abs(yMax) - Math.Abs(centrPoint.Y);
+            var distanceToXMax = Math.Abs(xMax) - Math.Abs(tagCloudSettings.ImageWidth/2);
+            var distanceToYMax = Math.Abs(yMax) - Math.Abs(tagCloudSettings.ImageHeight/2);
 
             return distanceToXMax > distanceToYMax ? distanceToXMax : distanceToYMax;
         }

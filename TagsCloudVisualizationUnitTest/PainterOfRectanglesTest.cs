@@ -9,13 +9,23 @@ namespace TagsCloudVisualizationUnitTest
 {
     class PainterOfRectanglesTest
     {
+        private ITagCloudSettings tagCloudSettings;
+
+        [SetUp]
+        public void InitCircularCloudLayouter()
+        {
+            tagCloudSettings = new TagCloudSetting();
+            tagCloudSettings.ImageHeight = 200;
+            tagCloudSettings.ImageWidth = 200;
+        }
+
         [Test]
         public void CreateImage_ShouldBeThrow_When_SizeCloud_Greatest_SizeImage()
         {
-            var painter = new PainterOfRectangles(new Size(10, 10));
-            var centrePoint = new Point(10, 10);
-            var spiral = new ArchimedesSpiral(centrePoint);
-            var circularCloudLayouter = new CircularCloudLayouter(centrePoint, spiral);
+            var painter = new PainterOfRectangles(tagCloudSettings);
+            var centrePoint = new Point(100, 100);
+            var spiral = new ArchimedesSpiral(tagCloudSettings);
+            var circularCloudLayouter = new CircularCloudLayouter(tagCloudSettings, spiral);
             var rectangles = new List<Rectangle>();
             var saver = new SaverImage("test");
 
@@ -32,10 +42,10 @@ namespace TagsCloudVisualizationUnitTest
         [Test]
         public void CreateImage_ShouldBeThrow_When_CommandIsNull()
         {
-            var painter = new PainterOfRectangles(new Size(10, 10));
+            var painter = new PainterOfRectangles(tagCloudSettings);
             var centrePoint = new Point(10, 10);
-            var spiral = new ArchimedesSpiral(centrePoint);
-            var circularCloudLayouter = new CircularCloudLayouter(centrePoint, spiral);
+            var spiral = new ArchimedesSpiral(tagCloudSettings);
+            var circularCloudLayouter = new CircularCloudLayouter(tagCloudSettings, spiral);
             var rectangles = new List<Rectangle>();
             var saver = new SaverImage("test");
 

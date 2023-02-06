@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TagsCloudVisualization.Interfaces;
 using TagsCloudVisualization.PreprocessorWords;
 
@@ -16,7 +14,7 @@ namespace TagsCloudVisualizationUnitTest
         {
             PreprocessorWords preprocessorWords = new PreprocessorWords();
 
-            IPreprocessor prepocessor = new  PreprocessorToLowercase();
+            IPreprocessor prepocessor = new PreprocessorToLowercase();
 
             preprocessorWords.AddPreprocessor(prepocessor);
 
@@ -75,7 +73,7 @@ namespace TagsCloudVisualizationUnitTest
 
             words = (List<string>)preprocessor.Correct(words);
 
-            List<string> afteCorrectWords = new List<string>() {"ASDASDA", "test",};
+            List<string> afteCorrectWords = new List<string>() { "ASDASDA", "test", };
             words.Should().BeEquivalentTo(afteCorrectWords);
         }
 
@@ -98,7 +96,6 @@ namespace TagsCloudVisualizationUnitTest
             List<string> afteCorrectWords = new List<string>() { "asdasda", "test", };
 
             words.Should().BeEquivalentTo(afteCorrectWords);
-
         }
 
 

@@ -10,7 +10,7 @@ namespace TagsCloudVisualization.Interfaces
 
         void RemovePreprocessor(IPreprocessor preprocessor);
 
-        void Apply(IEnumerable<string> words);
+        IEnumerable<string> Apply(IEnumerable<string> words);
 
     }
 }

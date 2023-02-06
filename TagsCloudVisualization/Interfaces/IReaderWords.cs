@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TagsCloudVisualization.Interfaces
 {
-    internal interface IReaderWords
+    public interface IReaderWords
     {
         IEnumerable<string> ReadWords(string _path);
     }

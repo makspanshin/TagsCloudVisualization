@@ -13,9 +13,9 @@ namespace TagsCloudVisualization
         private readonly ISpiral spiral;
         private readonly List<Rectangle> rectangles;
 
-        public CircularCloudLayouter(Point center, ISpiral spiral)
+        public CircularCloudLayouter(ITagCloudSettings tagCloudSettings, ISpiral spiral)
         {
-            centrPoint = center;
+            centrPoint = new Point(tagCloudSettings.ImageWidth/2,tagCloudSettings.ImageHeight/2);
             nextPoint = centrPoint;
             rectangles = new List<Rectangle>();
             this.spiral = spiral;

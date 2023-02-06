@@ -10,9 +10,9 @@ namespace TagsCloudVisualization
     {
         private Size pictSize;
 
-        public PainterOfRectangles(Size sizeOfPicture)
+        public PainterOfRectangles(ITagCloudSettings tagCloudSettings)
         {
-            pictSize = sizeOfPicture;
+            pictSize = new Size(tagCloudSettings.ImageWidth,tagCloudSettings.ImageHeight);
         }
 
         public void CreateImage(List<Rectangle> rectangles, ICommandImage command)

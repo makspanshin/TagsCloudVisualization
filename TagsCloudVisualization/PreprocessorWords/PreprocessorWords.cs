@@ -22,13 +22,15 @@ namespace TagsCloudVisualization.PreprocessorWords
             preprocessors.Remove(preprocessor);
         }
 
-        public void Apply(IEnumerable<string> words)
+        public IEnumerable<string> Apply(IEnumerable<string> words)
         {
             IEnumerable<string> processedWords  = words;
             foreach (var item in preprocessors)
             {
                 processedWords = item.Correct(processedWords);
             }
+
+            return processedWords;
         }
     }
 }

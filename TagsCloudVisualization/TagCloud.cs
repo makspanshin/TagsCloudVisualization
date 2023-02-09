@@ -8,7 +8,7 @@ using TagsCloudVisualization.Interfaces;
 
 namespace TagsCloudVisualization
 {
-    public class TagCloud
+    public class TagCloud : ITagCloud
     {
         private readonly IReaderWords readerWords;
         private readonly IPreprocessorWords preprocessorWords;

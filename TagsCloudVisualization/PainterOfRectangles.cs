@@ -12,13 +12,11 @@ namespace TagsCloudVisualization
 
         public PainterOfRectangles(ITagCloudSettings tagCloudSettings)
         {
-            pictSize = new Size(tagCloudSettings.ImageWidth,tagCloudSettings.ImageHeight);
+            pictSize = new Size(tagCloudSettings.ImageWidth, tagCloudSettings.ImageHeight);
         }
 
-        public void CreateImage(List<Rectangle> rectangles, ICommandImage command)
+        public Bitmap CreateImage(List<Rectangle> rectangles, List<string> words)
         {
-            if (command == null)
-                throw new ArgumentException("Parametr command is null");
 
             if (!IsCorrectSizeImage(rectangles))
             {
@@ -31,14 +29,28 @@ namespace TagsCloudVisualization
 
             using Pen penRectangle = new Pen(Color.Blue, .5f);
 
-            foreach (var rectangle in rectangles)
+            StringFormat sf = new StringFormat();
+            sf.Alignment = StringAlignment.Near;
+            sf.LineAlignment = StringAlignment.Near;
+
+            //foreach (var rectangle in rectangles)
+            //{
+            //    graphics.DrawRectangle(penRectangle, rectangle);
+
+            //    graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+            //    graphics.DrawString("Текст по центру", new Font("Times", 15), Brushes.Black, rectangle, sf);
+            //}
+            for (int i = 0; i < rectangles.Count; i++)
             {
-                graphics.DrawRectangle(penRectangle, rectangle);
+                graphics.DrawRectangle(penRectangle, rectangles[i]);
+
+                graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+                graphics.DrawString(words[i], new Font("Times", 15), Brushes.Black, rectangles[i], sf);
             }
 
-            using Image imageRectangles = new Bitmap(bmp);
-
-            command.Execute(imageRectangles);
+            return new Bitmap(bmp);
         }
 
         private bool IsCorrectSizeImage(List<Rectangle> rectangles)

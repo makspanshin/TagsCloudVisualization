@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using TagsCloudVisualization;
-using TagsCloudVisualization.Interfaces;
+using TagsCloudVisualization.CloudLayouter;
+using TagsCloudVisualization.Painter;
 using TagsCloudVisualization.PreprocessorWords;
+using TagsCloudVisualization.ReaderWords;
+using TagsCloudVisualization.Visualizer;
 
 namespace DebugProject
 {

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TagsCloudVisualization.Interfaces;
 
 namespace TagsCloudVisualization.PreprocessorWords
 {

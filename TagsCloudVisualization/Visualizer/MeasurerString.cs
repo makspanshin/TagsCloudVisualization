@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace TagsCloudVisualization
+namespace TagsCloudVisualization.Visualizer
 {
     internal class MeasurerString
     {
@@ -10,7 +10,7 @@ namespace TagsCloudVisualization
 
         public Size MeasureString(string word, int sizeFont)
         {
-            using Font font = new Font("Times", sizeFont);
+            using var font = new Font("Times", sizeFont);
 
             return new Size((int)font.Size * word.Length, font.Height);
         }

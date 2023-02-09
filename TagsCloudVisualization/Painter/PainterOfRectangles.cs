@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using TagsCloudVisualization.Interfaces;
 
-namespace TagsCloudVisualization
+namespace TagsCloudVisualization.Painter
 {
     public class PainterOfRectangles : IPainter
     {
@@ -23,13 +22,13 @@ namespace TagsCloudVisualization
                 throw new Exception("Размеры изображения не подходят, чтобы вписать прямоугольники");
             }
 
-            using Bitmap bmp = new Bitmap(pictSize.Width, pictSize.Height);
+            using var bmp = new Bitmap(pictSize.Width, pictSize.Height);
 
-            using Graphics graphics = Graphics.FromImage(bmp);
+            using var graphics = Graphics.FromImage(bmp);
 
-            using Pen penRectangle = new Pen(Color.Blue, .5f);
+            using var penRectangle = new Pen(Color.Blue, .5f);
 
-            StringFormat sf = new StringFormat();
+            var sf = new StringFormat();
             sf.Alignment = StringAlignment.Near;
             sf.LineAlignment = StringAlignment.Near;
 
@@ -41,7 +40,7 @@ namespace TagsCloudVisualization
 
             //    graphics.DrawString("Текст по центру", new Font("Times", 15), Brushes.Black, rectangle, sf);
             //}
-            for (int i = 0; i < rectangles.Count; i++)
+            for (var i = 0; i < rectangles.Count; i++)
             {
                 graphics.DrawRectangle(penRectangle, rectangles[i]);
 

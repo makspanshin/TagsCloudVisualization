@@ -3,8 +3,8 @@ using System.Drawing;
 using System.IO;
 using NUnit.Framework;
 using FluentAssertions;
-using TagsCloudVisualization;
 using System.Text;
+using TagsCloudVisualization.ReaderWords;
 
 namespace TagsCloudVisualizationUnitTest
 {

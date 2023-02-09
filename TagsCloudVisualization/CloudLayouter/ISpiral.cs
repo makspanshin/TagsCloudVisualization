@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace TagsCloudVisualization.Interfaces
+namespace TagsCloudVisualization.CloudLayouter
 {
     public interface ISpiral
     {

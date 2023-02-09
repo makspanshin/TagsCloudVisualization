@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace TagsCloudVisualization.Interfaces
+namespace TagsCloudVisualization.Painter
 {
     public interface IPainter
     {

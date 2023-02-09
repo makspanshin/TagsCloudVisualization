@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using TagsCloudVisualization.Interfaces;
+using TagsCloudVisualization.CloudLayouter;
+using TagsCloudVisualization.Painter;
 
-namespace TagsCloudVisualization
+namespace TagsCloudVisualization.Visualizer
 {
     public class Visualizer : IVisualizer
     {
@@ -18,7 +19,7 @@ namespace TagsCloudVisualization
 
         public Bitmap Visualize(IEnumerable<string> words)
         {
-            MeasurerString measurerString = new MeasurerString();
+            var measurerString = new MeasurerString();
             var rectangles = new List<Rectangle>();
             foreach (var item in words)
             {

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using TagsCloudVisualization.Interfaces;
+using TagsCloudVisualization.PreprocessorWords;
+using TagsCloudVisualization.ReaderWords;
+using TagsCloudVisualization.Saver;
+using TagsCloudVisualization.Visualizer;
 
 namespace TagsCloudVisualization
 {

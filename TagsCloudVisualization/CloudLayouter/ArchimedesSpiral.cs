@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using TagsCloudVisualization.Interfaces;
 
-namespace TagsCloudVisualization
+namespace TagsCloudVisualization.CloudLayouter
 {
     public class ArchimedesSpiral : ISpiral
     {
@@ -16,7 +15,7 @@ namespace TagsCloudVisualization
 
         public ArchimedesSpiral(ITagCloudSettings tagCloudSettings)
         {
-            this.center = new Point(tagCloudSettings.ImageWidth / 2, tagCloudSettings.ImageHeight / 2);
+            center = new Point(tagCloudSettings.ImageWidth / 2, tagCloudSettings.ImageHeight / 2);
             nextAngle = 0;
         }
 

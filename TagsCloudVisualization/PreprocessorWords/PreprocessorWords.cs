@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TagsCloudVisualization.Interfaces;
 
@@ -8,6 +9,11 @@ namespace TagsCloudVisualization.PreprocessorWords
     public class PreprocessorWords : IPreprocessorWords
     {
         private List<IPreprocessor> preprocessors = new List<IPreprocessor>();
+
+        public PreprocessorWords(IPreprocessor[] preprocessors)
+        {
+            this.preprocessors = preprocessors.ToList();
+        }
 
         public List<IPreprocessor> Preprocessors { get => preprocessors;}
 

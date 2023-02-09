@@ -1,27 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
 using System.Text;
 using TagsCloudVisualization.Interfaces;
 
 namespace TagsCloudVisualization
 {
-    public  class TagCloud
+    public class TagCloud
     {
         private readonly IReaderWords readerWords;
         private readonly IPreprocessorWords preprocessorWords;
-        private readonly ICloudLayouter cloudLayouter;
-        private readonly IPainter painter;
-        private readonly ISpiral spiral;
+        private readonly IVisualizer visualizer;
+
         //var centrePoint = new Point(750, 750);
 
-        public TagCloud(IReaderWords readerWords, IPreprocessorWords preprocessorWords, ICloudLayouter cloudLayouter, IPainter painter, ISpiral spiral)
+        //TODO объежеить в один класс 
+        public TagCloud(IReaderWords readerWords, IPreprocessorWords preprocessorWords, IVisualizer visualizer)
         {
             this.readerWords = readerWords;
             this.preprocessorWords = preprocessorWords;
-            this.cloudLayouter = cloudLayouter;
-            this.painter = painter;
-            this.spiral = spiral;
+            this.visualizer = visualizer;
         }
+
+        public void Draw()
+        {
+            IEnumerable<string> words = readerWords.ReadWords();
+            words = preprocessorWords.Apply(words);
+
+            var saver = new SaverImage("CircularCloudLayouter1.png");
+
+            saver.Execute(visualizer.Visualize(words));
+            var openImageProcess = new Process();
+            openImageProcess.StartInfo = new ProcessStartInfo("CircularCloudLayouter1.png")
+            {
+                UseShellExecute = true
+            };
+            openImageProcess.Start();
+
+        }
+
+
 
 
     }

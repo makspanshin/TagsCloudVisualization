@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using TagsCloudVisualization;
+using TagsCloudVisualization.PreprocessorWords;
 
 namespace DebugProject
 {
@@ -10,35 +11,23 @@ namespace DebugProject
     {
         static void Main()
         {
-            var painter = new PainterOfRectangles(new Size(1500, 1500));
-            var centrePoint = new Point(750, 750);
-            var spiral = new ArchimedesSpiral(centrePoint);
-            var circularCloudLayouter = new CircularCloudLayouter(centrePoint, spiral);
-            var rectangles = new List<Rectangle>();
-            var saver = new SaverImage("CircularCloudLayouter1.png");
+            TagCloudSetting tagCloudSetting = new TagCloudSetting();
+            tagCloudSetting.ImageWidth = 1500;
+            tagCloudSetting.ImageHeight = 1500;
+            tagCloudSetting.PathToWords = "Words.txt";
 
-            var generatorRectangle = new GeneratorOfRectangles();
+            var spiral = new ArchimedesSpiral(tagCloudSetting);
+            var readerWord = new  ReaderWord(tagCloudSetting);
+            var preprocessorWords = new PreprocessorWords();
+            preprocessorWords.AddPreprocessor(new PreprocessorToLowercase());
+            preprocessorWords.AddPreprocessor(new PreprocessorDeleteSmallWord());
+            var painter = new PainterOfRectangles(tagCloudSetting);
+            var circularCloudLayouter = new CircularCloudLayouter(tagCloudSetting, spiral);
+            var visualizer = new Visualizer(circularCloudLayouter,painter);
 
-            /*for (int i = 0; i < 2000; i++)
-            {
-                rectangles.Add(circularCloudLayouter.PutNextRectangle(generatorRectangle.GetSize(10, 10)));
-            }*/
+            TagCloud tagCloud = new TagCloud(readerWord, preprocessorWords, visualizer);
 
-            foreach (var item in generatorRectangle.GetSize(3, 50))
-            {
-                rectangles.Add(circularCloudLayouter.PutNextRectangle(item));
-                if (rectangles.Count > 2000)
-                    break;
-            }
-
-            painter.CreateImage(rectangles, saver);
-
-            var openImageProcess = new Process();
-            openImageProcess.StartInfo = new ProcessStartInfo("CircularCloudLayouter1.png")
-            {
-                UseShellExecute = true
-            };
-            openImageProcess.Start();
+            tagCloud.Draw();
         }
     }
 }

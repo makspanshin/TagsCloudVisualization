@@ -11,7 +11,7 @@ namespace TagsCloudVisualization
 
         public IEnumerable<Size> GetSize(int minValue, int maxValue)
         {
-            while (true) 
+            while (true)
             {
                 yield return new Size(rnd.Next(minValue, maxValue), rnd.Next(minValue, maxValue));
             }

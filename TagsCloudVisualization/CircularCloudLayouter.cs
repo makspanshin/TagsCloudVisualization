@@ -15,7 +15,7 @@ namespace TagsCloudVisualization
 
         public CircularCloudLayouter(ITagCloudSettings tagCloudSettings, ISpiral spiral)
         {
-            centrPoint = new Point(tagCloudSettings.ImageWidth/2,tagCloudSettings.ImageHeight/2);
+            centrPoint = new Point(tagCloudSettings.ImageWidth / 2, tagCloudSettings.ImageHeight / 2);
             nextPoint = centrPoint;
             rectangles = new List<Rectangle>();
             this.spiral = spiral;
@@ -30,7 +30,7 @@ namespace TagsCloudVisualization
             }
 
             var currentRectangle = new Rectangle(nextPoint, rectangleSize);
-            
+
             while (IsIntersects(currentRectangle))
             {
                 nextPoint = spiral.CalculatePoint();

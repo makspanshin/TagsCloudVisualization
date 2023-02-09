@@ -16,7 +16,7 @@ namespace TagsCloudVisualization
 
         public ArchimedesSpiral(ITagCloudSettings tagCloudSettings)
         {
-            this.center = new Point(tagCloudSettings.ImageWidth/2,tagCloudSettings.ImageHeight/2);
+            this.center = new Point(tagCloudSettings.ImageWidth / 2, tagCloudSettings.ImageHeight / 2);
             nextAngle = 0;
         }
 

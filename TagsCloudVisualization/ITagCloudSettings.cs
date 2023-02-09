@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TagsCloudVisualization
+﻿namespace TagsCloudVisualization
 {
     public interface ITagCloudSettings
     {

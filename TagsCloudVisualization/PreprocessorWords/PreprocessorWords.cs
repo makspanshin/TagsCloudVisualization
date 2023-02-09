@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TagsCloudVisualization.Interfaces;
 
 namespace TagsCloudVisualization.PreprocessorWords
@@ -15,7 +13,7 @@ namespace TagsCloudVisualization.PreprocessorWords
             this.preprocessors = preprocessors.ToList();
         }
 
-        public List<IPreprocessor> Preprocessors { get => preprocessors;}
+        public List<IPreprocessor> Preprocessors { get => preprocessors; }
 
         public void AddPreprocessor(IPreprocessor preprocessor)
         {
@@ -30,7 +28,7 @@ namespace TagsCloudVisualization.PreprocessorWords
 
         public IEnumerable<string> Apply(IEnumerable<string> words)
         {
-            IEnumerable<string> processedWords  = words;
+            IEnumerable<string> processedWords = words;
             foreach (var item in preprocessors)
             {
                 processedWords = item.Correct(processedWords);

@@ -8,14 +8,16 @@ namespace TagsCloudVisualization
 {
     public class ReaderWord : IReaderWords
     {
-        public ReaderWord()
+        private string path;
+        public ReaderWord(ITagCloudSettings tagCloudSettings)
         {
+            path = tagCloudSettings.PathToWords;
         }
 
-        public IEnumerable<string> ReadWords(string _path)
+        public IEnumerable<string> ReadWords()
         {
-            if (File.Exists(_path))
-                return File.ReadLines(_path);
+            if (File.Exists(path))
+                return File.ReadLines(path);
             else
                 throw new Exception("File dont exist");
         }

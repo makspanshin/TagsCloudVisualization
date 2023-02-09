@@ -6,6 +6,6 @@ namespace TagsCloudVisualization.Interfaces
 {
     public interface IReaderWords
     {
-        IEnumerable<string> ReadWords(string _path);
+        IEnumerable<string> ReadWords();
     }
 }

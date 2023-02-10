@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using TagsCloudVisualization.PreprocessorWords;
 using TagsCloudVisualization.ReaderWords;
 using TagsCloudVisualization.Saver;
@@ -30,7 +31,14 @@ namespace TagsCloudVisualization
 
             var saver = new SaverImage("CircularCloudLayouter1.png");
 
-            saver.Execute(visualizer.Visualize(words));
+            //Dictionary<string, int> wordsDict = words.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
+
+            var wordsDict = words.GroupBy(x => x)
+                                 .ToDictionary(x => x.Key, x => x.Count())
+                                 .OrderByDescending(x => x.Value)
+                                 .ToDictionary(x => x.Key, x => x.Value);
+
+            saver.Execute(visualizer.Visualize(wordsDict));
             var openImageProcess = new Process();
             openImageProcess.StartInfo = new ProcessStartInfo("CircularCloudLayouter1.png")
             {

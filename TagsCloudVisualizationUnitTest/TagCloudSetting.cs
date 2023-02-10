@@ -13,3 +13,4 @@ namespace TagsCloudVisualizationUnitTest
         public string BackgroundColor { get; set; }
         public string PathToWords { get; set; }
     }
+}

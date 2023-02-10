@@ -4,6 +4,9 @@ using System.Drawing;
 using FluentAssertions;
 using NUnit.Framework;
 using TagsCloudVisualization;
+using TagsCloudVisualization.CloudLayouter;
+using TagsCloudVisualization.Painter;
+using TagsCloudVisualization.Saver;
 
 namespace TagsCloudVisualizationUnitTest
 {
@@ -34,7 +37,7 @@ namespace TagsCloudVisualizationUnitTest
                 rectangles.Add(circularCloudLayouter.PutNextRectangle(new Size(100, 100)));
             }
 
-            Action act = () => painter.CreateImage(rectangles, saver);
+            Action act = () => saver.Execute(painter.CreateImage(rectangles));
 
             act.Should().Throw<Exception>();
         }
@@ -54,7 +57,7 @@ namespace TagsCloudVisualizationUnitTest
                 rectangles.Add(circularCloudLayouter.PutNextRectangle(new Size(100, 100)));
             }
 
-            Action act = () => painter.CreateImage(rectangles, saver);
+            Action act = () => saver.Execute(painter.CreateImage(rectangles));
 
             act.Should().Throw<Exception>();
         }

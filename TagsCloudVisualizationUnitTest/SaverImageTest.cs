@@ -4,6 +4,7 @@ using System.IO;
 using NUnit.Framework;
 using FluentAssertions;
 using TagsCloudVisualization;
+using TagsCloudVisualization.Saver;
 
 namespace TagsCloudVisualizationUnitTest
 {

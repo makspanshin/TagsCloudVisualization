@@ -10,6 +10,11 @@ namespace TagsCloudVisualization.PreprocessorWords
             this.Preprocessors = preprocessors.ToList();
         }
 
+        public PreprocessorWords()
+        {
+
+        }
+
         public List<IPreprocessor> Preprocessors { get; } = new();
 
         public void AddPreprocessor(IPreprocessor preprocessor)

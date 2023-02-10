@@ -4,21 +4,27 @@ using System.IO;
 using NUnit.Framework;
 using FluentAssertions;
 using System.Text;
+using TagsCloudVisualization;
 using TagsCloudVisualization.ReaderWords;
 
 namespace TagsCloudVisualizationUnitTest
 {
     internal class ReaderWordTest
     {
+        private const string fileName = "Word.txt";
+        private ITagCloudSettings tagCloudSettings;
 
-        private const string fileName = "test.txt";
         [SetUp]
         public void GenerationWords()
         {
-           using var file =  File.Create(fileName);
-           byte[] buffer = Encoding.Default.GetBytes("молодец\nумный\n");
-            // запись массива байтов в файл
-           file.Write(buffer, 0, buffer.Length);
+            tagCloudSettings = new TagCloudSetting();
+            tagCloudSettings.ImageHeight = 200;
+            tagCloudSettings.ImageWidth = 200;
+            tagCloudSettings.PathToWords = fileName;
+
+            using var file = File.Create(fileName);
+            byte[] buffer = Encoding.Default.GetBytes("молодец\nумный\n");
+            file.Write(buffer, 0, buffer.Length);
         }
 
         [TearDown]
@@ -30,11 +36,9 @@ namespace TagsCloudVisualizationUnitTest
         [Test]
         public void ReadWord_ShouldBe_Ok()
         {
-            const string filename = fileName;
+            ReaderWord readerWord = new ReaderWord(tagCloudSettings);
 
-            ReaderWord readerWord = new ReaderWord();
-
-            readerWord.ReadWords(filename).Should().NotBeEmpty();
+            readerWord.ReadWords().Should().NotBeEmpty();
         }
 
         [Test]
@@ -42,11 +46,9 @@ namespace TagsCloudVisualizationUnitTest
         {
             DeleteFile();
 
-            const string filename = fileName;
+            ReaderWord readerWord = new ReaderWord(tagCloudSettings);
 
-            ReaderWord readerWord = new ReaderWord();
-
-            Action act = () => readerWord.ReadWords(filename);
+            Action act = () => readerWord.ReadWords();
 
             act.Should().Throw<Exception>();
         }

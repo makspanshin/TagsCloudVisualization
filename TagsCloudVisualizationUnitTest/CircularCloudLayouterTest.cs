@@ -10,6 +10,8 @@ using TagsCloudVisualization;
 using TagsCloudVisualization.Painter;
 using TagsCloudVisualization.CloudLayouter;
 using TagsCloudVisualization.Helpers;
+using TagsCloudVisualization.ReaderWords;
+using TagsCloudVisualization.Saver;
 
 namespace TagsCloudVisualizationUnitTest
 {
@@ -22,7 +24,7 @@ namespace TagsCloudVisualizationUnitTest
         private Point centrPoint;
         private const string PathFolderFailedTest = "FailedTest";
         private ITagCloudSettings tagCloudSettings;
-
+        private IReaderWords readerWords;
         [SetUp]
         public void InitCircularCloudLayouter()
         {
@@ -44,7 +46,7 @@ namespace TagsCloudVisualizationUnitTest
                 var nameFile = PathFolderFailedTest + "//" + TestContext.CurrentContext.Test.FullName + "Failed.png";
                 var saver = new SaverImage(nameFile);
                 painterOfRectangles = new PainterOfRectangles(tagCloudSettings);
-                painterOfRectangles.CreateImage(rectangles, saver);
+                saver.Execute(painterOfRectangles.CreateImage(rectangles));
             }
         }
 
@@ -90,31 +92,26 @@ namespace TagsCloudVisualizationUnitTest
             densityCloud.Should().BeGreaterThan(70);
         }
 
-        //[TestCase(10, TestName = "10 Rectangles")]
-        //[TestCase(1000, TestName = "1000 Rectangles")]
-        //[TestCase(2000, TestName = "2000 Rectangles")]
-        //public void DensityCloud_Random_Size_ShouldBeBig(int countRectangle)
-        //{
-        //    var generator = new GeneratorOfRectangles();
+        [TestCase(10, TestName = "10 Rectangles Random Size")]
+        [TestCase(1000, TestName = "1000 Rectangles Random Size")]
+        [TestCase(2000, TestName = "2000 Rectangles Random Size")]
+        public void DensityCloud_Random_Size_ShouldBeBig(int countRectangle)
+        {
+            var generator = new GeneratorOfRectangles();
 
-        //    /*for (var i = 0; i < countRectangle; i++)
-        //    {
-        //        rectangles.Add(circularCloudLayouter.PutNextRectangle(generator.GetSize(10, 20)));
-        //    }*/
+            foreach (var item in generator.GetSize(10, 20))
+            {
+                rectangles.Add(circularCloudLayouter.PutNextRectangle(item));
+                if (rectangles.Count > countRectangle)
+                    break;
+            }
 
-        //    foreach (var item in generator.GetSize(10, 20))
-        //    {
-        //        rectangles.Add(circularCloudLayouter.PutNextRectangle(item));
-        //        if (rectangles.Count > countRectangle)
-        //            break;
-        //    }
+            var square = Math.Pow(Radius(), 2) * Math.PI;
 
-        //    var square = Math.Pow(Radius(), 2) * Math.PI;
+            var densityCloud = SquareRectangles() / square * 100;
 
-        //    var densityCloud = SquareRectangles() / square * 100;
-
-        //    densityCloud.Should().BeGreaterThan(70);
-        //}
+            densityCloud.Should().BeGreaterThan(70);
+        }
 
         private int Radius()
         {

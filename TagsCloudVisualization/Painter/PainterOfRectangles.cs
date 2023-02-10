@@ -43,6 +43,27 @@ namespace TagsCloudVisualization.Painter
             return new Bitmap(bmp);
         }
 
+        public Bitmap CreateImage(List<Rectangle> rectangles)
+        {
+            if (!IsCorrectSizeImage(rectangles))
+                throw new Exception("Размеры изображения не подходят, чтобы вписать прямоугольники");
+
+            using var bmp = new Bitmap(pictSize.Width, pictSize.Height);
+
+            using var graphics = Graphics.FromImage(bmp);
+
+            using var penRectangle = new Pen(Color.Blue, .5f);
+
+            var sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+
+            for (var i = 0; i < rectangles.Count; i++)
+                graphics.DrawRectangle(penRectangle, rectangles[i]);
+
+            return new Bitmap(bmp);
+        }
+
         private bool IsCorrectSizeImage(List<Rectangle> rectangles)
         {
             if (rectangles.Max(rectangle => rectangle.X) > pictSize.Height ||

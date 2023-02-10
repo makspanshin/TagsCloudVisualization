@@ -6,7 +6,7 @@ using TagsCloudVisualization.CloudLayouter;
 
 namespace TagsCloudVisualizationUnitTest
 {
-    class ArchimedesSpiralTest
+    internal class ArchimedesSpiralTest
     {
         private ITagCloudSettings tagCloudSettings;
 

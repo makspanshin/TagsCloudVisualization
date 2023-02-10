@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
-using NUnit.Framework;
-using FluentAssertions;
 using System.Text;
+using FluentAssertions;
+using NUnit.Framework;
 using TagsCloudVisualization;
 using TagsCloudVisualization.ReaderWords;
 
@@ -23,7 +22,7 @@ namespace TagsCloudVisualizationUnitTest
             tagCloudSettings.PathToWords = fileName;
 
             using var file = File.Create(fileName);
-            byte[] buffer = Encoding.Default.GetBytes("молодец\nумный\n");
+            var buffer = Encoding.Default.GetBytes("молодец\nумный\n");
             file.Write(buffer, 0, buffer.Length);
         }
 
@@ -36,7 +35,7 @@ namespace TagsCloudVisualizationUnitTest
         [Test]
         public void ReadWord_ShouldBe_Ok()
         {
-            ReaderWord readerWord = new ReaderWord(tagCloudSettings);
+            var readerWord = new ReaderWord(tagCloudSettings);
 
             readerWord.ReadWords().Should().NotBeEmpty();
         }
@@ -46,7 +45,7 @@ namespace TagsCloudVisualizationUnitTest
         {
             DeleteFile();
 
-            ReaderWord readerWord = new ReaderWord(tagCloudSettings);
+            var readerWord = new ReaderWord(tagCloudSettings);
 
             Action act = () => readerWord.ReadWords();
 

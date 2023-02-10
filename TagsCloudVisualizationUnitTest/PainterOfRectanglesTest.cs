@@ -10,7 +10,7 @@ using TagsCloudVisualization.Saver;
 
 namespace TagsCloudVisualizationUnitTest
 {
-    class PainterOfRectanglesTest
+    internal class PainterOfRectanglesTest
     {
         private ITagCloudSettings tagCloudSettings;
 
@@ -32,10 +32,7 @@ namespace TagsCloudVisualizationUnitTest
             var rectangles = new List<Rectangle>();
             var saver = new SaverImage("test");
 
-            for (int i = 0; i < 100; i++)
-            {
-                rectangles.Add(circularCloudLayouter.PutNextRectangle(new Size(100, 100)));
-            }
+            for (var i = 0; i < 100; i++) rectangles.Add(circularCloudLayouter.PutNextRectangle(new Size(100, 100)));
 
             Action act = () => saver.Execute(painter.CreateImage(rectangles));
 
@@ -52,10 +49,7 @@ namespace TagsCloudVisualizationUnitTest
             var rectangles = new List<Rectangle>();
             var saver = new SaverImage("test");
 
-            for (int i = 0; i < 100; i++)
-            {
-                rectangles.Add(circularCloudLayouter.PutNextRectangle(new Size(100, 100)));
-            }
+            for (var i = 0; i < 100; i++) rectangles.Add(circularCloudLayouter.PutNextRectangle(new Size(100, 100)));
 
             Action act = () => saver.Execute(painter.CreateImage(rectangles));
 

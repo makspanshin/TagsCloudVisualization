@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using NUnit.Framework;
 using FluentAssertions;
+using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using TagsCloudVisualization;
-using TagsCloudVisualization.Painter;
 using TagsCloudVisualization.CloudLayouter;
 using TagsCloudVisualization.Helpers;
+using TagsCloudVisualization.Painter;
 using TagsCloudVisualization.ReaderWords;
 using TagsCloudVisualization.Saver;
 
@@ -17,14 +17,15 @@ namespace TagsCloudVisualizationUnitTest
 {
     public class TagsCloudVisualizationTest
     {
+        private const string PathFolderFailedTest = "FailedTest";
+        private ArchimedesSpiral archimedesSpiral;
+        private Point centrPoint;
         private CircularCloudLayouter circularCloudLayouter;
         private PainterOfRectangles painterOfRectangles;
-        private ArchimedesSpiral archimedesSpiral;
-        private List<Rectangle> rectangles;
-        private Point centrPoint;
-        private const string PathFolderFailedTest = "FailedTest";
-        private ITagCloudSettings tagCloudSettings;
         private IReaderWords readerWords;
+        private List<Rectangle> rectangles;
+        private ITagCloudSettings tagCloudSettings;
+
         [SetUp]
         public void InitCircularCloudLayouter()
         {
@@ -63,10 +64,7 @@ namespace TagsCloudVisualizationUnitTest
         [Test]
         public void PutNextRectangle_RectanglesShouldBeHaveUniqueCoordinates()
         {
-            for (var i = 0; i < 1000; i++)
-            {
-                rectangles.Add(circularCloudLayouter.PutNextRectangle(new Size(10, 10)));
-            }
+            for (var i = 0; i < 1000; i++) rectangles.Add(circularCloudLayouter.PutNextRectangle(new Size(10, 10)));
 
             rectangles.Should().OnlyHaveUniqueItems();
         }
@@ -121,8 +119,8 @@ namespace TagsCloudVisualizationUnitTest
             var xMax = rectangles.Max(rectangle => Math.Abs(rectangle.X));
             var yMax = rectangles.Max(rectangle => Math.Abs(rectangle.Y));
 
-            var distanceToXMax = Math.Abs(xMax) - Math.Abs(tagCloudSettings.ImageWidth/2);
-            var distanceToYMax = Math.Abs(yMax) - Math.Abs(tagCloudSettings.ImageHeight/2);
+            var distanceToXMax = Math.Abs(xMax) - Math.Abs(tagCloudSettings.ImageWidth / 2);
+            var distanceToYMax = Math.Abs(yMax) - Math.Abs(tagCloudSettings.ImageHeight / 2);
 
             return distanceToXMax > distanceToYMax ? distanceToXMax : distanceToYMax;
         }

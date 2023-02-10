@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using NUnit.Framework;
 using FluentAssertions;
-using TagsCloudVisualization;
+using NUnit.Framework;
 using TagsCloudVisualization.Saver;
 
 namespace TagsCloudVisualizationUnitTest
 {
-    class SaverImageTest
+    internal class SaverImageTest
     {
         [TestCase("", TestName = "Filename is empty")]
         [TestCase(" ", TestName = "Filename is white Space")]

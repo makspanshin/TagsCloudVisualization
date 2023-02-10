@@ -5,6 +5,6 @@ namespace TagsCloudVisualization.Painter
 {
     public interface IPainter
     {
-        public Bitmap CreateImage(List<Rectangle> rectangles, List<string> words);
+        public Bitmap CreateImage(List<Rectangle> rectangles, Dictionary<string, int> wordsDict);
     }
 }

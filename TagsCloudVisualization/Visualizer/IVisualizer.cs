@@ -5,6 +5,6 @@ namespace TagsCloudVisualization.Visualizer
 {
     public interface IVisualizer
     {
-        Bitmap Visualize(IEnumerable<string> words);
+        Bitmap Visualize(Dictionary<string, int> wordsDict);
     }
 }

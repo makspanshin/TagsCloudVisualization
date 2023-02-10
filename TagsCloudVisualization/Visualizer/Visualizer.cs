@@ -17,16 +17,16 @@ namespace TagsCloudVisualization.Visualizer
             this.painter = painter;
         }
 
-        public Bitmap Visualize(IEnumerable<string> words)
+        public Bitmap Visualize(Dictionary<string, int> wordsDict)
         {
             var measurerString = new MeasurerString();
             var rectangles = new List<Rectangle>();
-            foreach (var item in words)
+            foreach (var item in wordsDict)
             {
-                rectangles.Add(cloudLayouter.PutNextRectangle(measurerString.MeasureString(item, 15)));
+                rectangles.Add(cloudLayouter.PutNextRectangle(measurerString.MeasureString(item.Key, 15 * item.Value)));
             }
 
-            return painter.CreateImage(rectangles, words.ToList());
+            return painter.CreateImage(rectangles, wordsDict);
         }
     }
 }

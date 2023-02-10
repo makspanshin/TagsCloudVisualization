@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
+using TagsCloudVisualization.Helpers;
 
 namespace TagsCloudVisualization.Painter
 {
     public class PainterOfRectangles : IPainter
     {
+        private readonly ITagCloudSettings tagCloudSettings;
         private Size pictSize;
 
         public PainterOfRectangles(ITagCloudSettings tagCloudSettings)
         {
+            this.tagCloudSettings = tagCloudSettings;
             pictSize = new Size(tagCloudSettings.ImageWidth, tagCloudSettings.ImageHeight);
         }
 
@@ -21,22 +24,21 @@ namespace TagsCloudVisualization.Painter
                 throw new Exception("Размеры изображения не подходят, чтобы вписать прямоугольники");
 
             using var bmp = new Bitmap(pictSize.Width, pictSize.Height);
-
             using var graphics = Graphics.FromImage(bmp);
-
             using var penRectangle = new Pen(Color.Blue, .5f);
+            using var sf = new StringFormat();
 
-            var sf = new StringFormat();
             sf.Alignment = StringAlignment.Center;
             sf.LineAlignment = StringAlignment.Center;
 
+            using var brush = new SolidBrush(ColorConvector.FromHex(tagCloudSettings.BackgroundColor));
+            graphics.FillRectangle(brush, 0, 0, tagCloudSettings.ImageWidth, tagCloudSettings.ImageHeight);
+
             for (var i = 0; i < rectangles.Count; i++)
             {
-                //graphics.DrawRectangle(penRectangle, rectangles[i]);
-
                 graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-                graphics.DrawString(wordsDict.Keys.ToArray()[i], new Font("Times", 15 * wordsDict.Values.ToArray()[i]),
+                graphics.DrawString(wordsDict.Keys.ToArray()[i], new Font("Times", tagCloudSettings.FontSize * wordsDict.Values.ToArray()[i]),
                     Brushes.Black, rectangles[i], sf);
             }
 
@@ -57,7 +59,8 @@ namespace TagsCloudVisualization.Painter
             var sf = new StringFormat();
             sf.Alignment = StringAlignment.Center;
             sf.LineAlignment = StringAlignment.Center;
-
+            using var brush = new SolidBrush(ColorConvector.FromHex(tagCloudSettings.BackgroundColor));
+            graphics.FillRectangle(brush, 0, 0, tagCloudSettings.ImageWidth, tagCloudSettings.ImageHeight);
             for (var i = 0; i < rectangles.Count; i++)
                 graphics.DrawRectangle(penRectangle, rectangles[i]);
 

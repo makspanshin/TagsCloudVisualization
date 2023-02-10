@@ -1,8 +1,4 @@
 ﻿using Autofac;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using TagsCloudVisualization;
 using TagsCloudVisualization.CloudLayouter;
 using TagsCloudVisualization.Painter;
@@ -12,10 +8,11 @@ using TagsCloudVisualization.Visualizer;
 
 namespace DebugProject
 {
-    class Program
+    internal class Program
     {
         private static IContainer Container { get; set; }
-        static void Main()
+
+        private static void Main()
         {
             var tagCloudSetting = new TagCloudSetting();
             tagCloudSetting.ImageWidth = 1500;
@@ -41,6 +38,5 @@ namespace DebugProject
             builder.RegisterInstance(tagCloudSettings).AsImplementedInterfaces().SingleInstance();
             return builder.Build();
         }
-
     }
 }

@@ -5,7 +5,7 @@ namespace TagsCloudVisualization.Saver
 {
     public class SaverImage : ICommandImage
     {
-        private string filename;
+        private readonly string filename;
 
         public SaverImage(string filename)
         {

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using TagsCloudVisualization.PreprocessorWords;
 using TagsCloudVisualization.ReaderWords;
@@ -10,8 +9,8 @@ namespace TagsCloudVisualization
 {
     public class TagCloud : ITagCloud
     {
-        private readonly IReaderWords readerWords;
         private readonly IPreprocessorWords preprocessorWords;
+        private readonly IReaderWords readerWords;
         private readonly IVisualizer visualizer;
 
         //var centrePoint = new Point(750, 750);
@@ -26,7 +25,7 @@ namespace TagsCloudVisualization
 
         public void Draw()
         {
-            IEnumerable<string> words = readerWords.ReadWords();
+            var words = readerWords.ReadWords();
             words = preprocessorWords.Apply(words);
 
             var saver = new SaverImage("CircularCloudLayouter1.png");
@@ -34,9 +33,9 @@ namespace TagsCloudVisualization
             //Dictionary<string, int> wordsDict = words.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
 
             var wordsDict = words.GroupBy(x => x)
-                                 .ToDictionary(x => x.Key, x => x.Count())
-                                 .OrderByDescending(x => x.Value)
-                                 .ToDictionary(x => x.Key, x => x.Value);
+                .ToDictionary(x => x.Key, x => x.Count())
+                .OrderByDescending(x => x.Value)
+                .ToDictionary(x => x.Key, x => x.Value);
 
             saver.Execute(visualizer.Visualize(wordsDict));
             var openImageProcess = new Process();
@@ -45,11 +44,6 @@ namespace TagsCloudVisualization
                 UseShellExecute = true
             };
             openImageProcess.Start();
-
         }
-
-
-
-
     }
 }

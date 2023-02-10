@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using TagsCloudVisualization.CloudLayouter;
 using TagsCloudVisualization.Painter;
 
@@ -22,9 +21,7 @@ namespace TagsCloudVisualization.Visualizer
             var measurerString = new MeasurerString();
             var rectangles = new List<Rectangle>();
             foreach (var item in wordsDict)
-            {
                 rectangles.Add(cloudLayouter.PutNextRectangle(measurerString.MeasureString(item.Key, 15 * item.Value)));
-            }
 
             return painter.CreateImage(rectangles, wordsDict);
         }

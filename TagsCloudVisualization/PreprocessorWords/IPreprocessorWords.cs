@@ -9,6 +9,5 @@ namespace TagsCloudVisualization.PreprocessorWords
         void RemovePreprocessor(IPreprocessor preprocessor);
 
         IEnumerable<string> Apply(IEnumerable<string> words);
-
     }
 }

@@ -7,10 +7,10 @@ namespace TagsCloudVisualization.CloudLayouter
 {
     public class CircularCloudLayouter : ICloudLayouter
     {
+        private readonly List<Rectangle> rectangles;
+        private readonly ISpiral spiral;
         private Point centrPoint;
         private Point nextPoint;
-        private readonly ISpiral spiral;
-        private readonly List<Rectangle> rectangles;
 
         public CircularCloudLayouter(ITagCloudSettings tagCloudSettings, ISpiral spiral)
         {
@@ -23,10 +23,8 @@ namespace TagsCloudVisualization.CloudLayouter
         public Rectangle PutNextRectangle(Size rectangleSize)
         {
             if (rectangleSize.Width <= 0 || rectangleSize.Height <= 0)
-            {
                 throw new ArgumentException(
                     $"Не корректные размеры прямоугольника. Высота: {rectangleSize.Height}, Ширина: {rectangleSize.Width}");
-            }
 
             var currentRectangle = new Rectangle(nextPoint, rectangleSize);
 

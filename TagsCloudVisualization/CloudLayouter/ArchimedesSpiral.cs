@@ -9,9 +9,9 @@ namespace TagsCloudVisualization.CloudLayouter
 
         private const double Step = 0.1;
 
-        private int nextAngle;
-
         private Point center;
+
+        private int nextAngle;
 
         public ArchimedesSpiral(ITagCloudSettings tagCloudSettings)
         {
@@ -22,8 +22,8 @@ namespace TagsCloudVisualization.CloudLayouter
         public Point CalculatePoint()
         {
             var radius = Step * nextAngle / TwoPi;
-            var x = (int)(radius * Math.Cos(nextAngle) + center.X);
-            var y = (int)(radius * Math.Sin(nextAngle) + center.Y);
+            var x = (int) (radius * Math.Cos(nextAngle) + center.X);
+            var y = (int) (radius * Math.Sin(nextAngle) + center.Y);
 
             nextAngle++;
 

@@ -5,33 +5,28 @@ namespace TagsCloudVisualization.PreprocessorWords
 {
     public class PreprocessorWords : IPreprocessorWords
     {
-        private List<IPreprocessor> preprocessors = new List<IPreprocessor>();
-
         public PreprocessorWords(IPreprocessor[] preprocessors)
         {
-            this.preprocessors = preprocessors.ToList();
+            this.Preprocessors = preprocessors.ToList();
         }
 
-        public List<IPreprocessor> Preprocessors { get => preprocessors; }
+        public List<IPreprocessor> Preprocessors { get; } = new();
 
         public void AddPreprocessor(IPreprocessor preprocessor)
         {
-            if (!preprocessors.Contains(preprocessor))
-                preprocessors.Add(preprocessor);
+            if (!Preprocessors.Contains(preprocessor))
+                Preprocessors.Add(preprocessor);
         }
 
         public void RemovePreprocessor(IPreprocessor preprocessor)
         {
-            preprocessors.Remove(preprocessor);
+            Preprocessors.Remove(preprocessor);
         }
 
         public IEnumerable<string> Apply(IEnumerable<string> words)
         {
-            IEnumerable<string> processedWords = words;
-            foreach (var item in preprocessors)
-            {
-                processedWords = item.Correct(processedWords);
-            }
+            var processedWords = words;
+            foreach (var item in Preprocessors) processedWords = item.Correct(processedWords);
 
             return processedWords;
         }

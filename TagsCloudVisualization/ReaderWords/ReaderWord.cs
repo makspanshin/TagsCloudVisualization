@@ -6,7 +6,8 @@ namespace TagsCloudVisualization.ReaderWords
 {
     public class ReaderWord : IReaderWords
     {
-        private string path;
+        private readonly string path;
+
         public ReaderWord(ITagCloudSettings tagCloudSettings)
         {
             path = tagCloudSettings.PathToWords;
@@ -16,8 +17,7 @@ namespace TagsCloudVisualization.ReaderWords
         {
             if (File.Exists(path))
                 return File.ReadLines(path);
-            else
-                throw new Exception("File dont exist");
+            throw new Exception("File dont exist");
         }
     }
 }

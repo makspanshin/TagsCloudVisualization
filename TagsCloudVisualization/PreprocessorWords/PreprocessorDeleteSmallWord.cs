@@ -4,7 +4,7 @@ namespace TagsCloudVisualization.PreprocessorWords
 {
     public class PreprocessorDeleteSmallWord : IPreprocessor
     {
-        private HashSet<string> ignoreWords = new HashSet<string>()
+        private readonly HashSet<string> ignoreWords = new()
         {
             "в",
             "ты",
@@ -18,21 +18,15 @@ namespace TagsCloudVisualization.PreprocessorWords
             "над",
             "по",
             "из",
-            "у",
+            "у"
         };
-
-        public PreprocessorDeleteSmallWord()
-        {
-        }
 
         public IEnumerable<string> Correct(IEnumerable<string> words)
         {
-            List<string> correctedWords = new List<string>();
+            var correctedWords = new List<string>();
             foreach (var item in words)
-            {
                 if (!ignoreWords.Contains(item))
                     correctedWords.Add(item);
-            }
             return correctedWords;
         }
     }

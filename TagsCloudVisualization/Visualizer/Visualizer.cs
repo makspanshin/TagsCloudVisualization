@@ -9,11 +9,13 @@ namespace TagsCloudVisualization.Visualizer
     {
         private readonly ICloudLayouter cloudLayouter;
         private readonly IPainter painter;
+        private readonly ITagCloudSettings tagCloudSettings;
 
-        public Visualizer(ICloudLayouter cloudLayouter, IPainter painter)
+        public Visualizer(ICloudLayouter cloudLayouter, IPainter painter, ITagCloudSettings tagCloudSettings )
         {
             this.cloudLayouter = cloudLayouter;
             this.painter = painter;
+            this.tagCloudSettings = tagCloudSettings;
         }
 
         public Bitmap Visualize(Dictionary<string, int> wordsDict)
@@ -21,7 +23,7 @@ namespace TagsCloudVisualization.Visualizer
             var measurerString = new MeasurerString();
             var rectangles = new List<Rectangle>();
             foreach (var item in wordsDict)
-                rectangles.Add(cloudLayouter.PutNextRectangle(measurerString.MeasureString(item.Key, 15 * item.Value)));
+                rectangles.Add(cloudLayouter.PutNextRectangle(measurerString.MeasureString(item.Key, tagCloudSettings.FontSize * item.Value)));
 
             return painter.CreateImage(rectangles, wordsDict);
         }

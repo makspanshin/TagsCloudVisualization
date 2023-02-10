@@ -18,7 +18,8 @@ namespace DebugProject
             tagCloudSetting.ImageWidth = 1500;
             tagCloudSetting.ImageHeight = 1500;
             tagCloudSetting.PathToWords = "Words.txt";
-
+            tagCloudSetting.FontSize = 15;
+            tagCloudSetting.BackgroundColor = "#ffa4ffa4";
             Container = Configure(tagCloudSetting);
             Container.Resolve<ITagCloud>().Draw();
         }

@@ -2,6 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 using TagsCloudVisualization;
+using TagsCloudVisualization.CloudLayouter;
 
 namespace TagsCloudVisualizationUnitTest
 {

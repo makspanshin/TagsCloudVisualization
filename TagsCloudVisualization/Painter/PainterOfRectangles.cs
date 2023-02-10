@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 
 namespace TagsCloudVisualization.Painter
@@ -14,13 +15,10 @@ namespace TagsCloudVisualization.Painter
             pictSize = new Size(tagCloudSettings.ImageWidth, tagCloudSettings.ImageHeight);
         }
 
-        public Bitmap CreateImage(List<Rectangle> rectangles, List<string> words)
+        public Bitmap CreateImage(List<Rectangle> rectangles, Dictionary<string, int> wordsDict)
         {
-
             if (!IsCorrectSizeImage(rectangles))
-            {
                 throw new Exception("Размеры изображения не подходят, чтобы вписать прямоугольники");
-            }
 
             using var bmp = new Bitmap(pictSize.Width, pictSize.Height);
 
@@ -29,24 +27,17 @@ namespace TagsCloudVisualization.Painter
             using var penRectangle = new Pen(Color.Blue, .5f);
 
             var sf = new StringFormat();
-            sf.Alignment = StringAlignment.Near;
-            sf.LineAlignment = StringAlignment.Near;
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
 
-            //foreach (var rectangle in rectangles)
-            //{
-            //    graphics.DrawRectangle(penRectangle, rectangle);
-
-            //    graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-
-            //    graphics.DrawString("Текст по центру", new Font("Times", 15), Brushes.Black, rectangle, sf);
-            //}
             for (var i = 0; i < rectangles.Count; i++)
             {
-                graphics.DrawRectangle(penRectangle, rectangles[i]);
+                //graphics.DrawRectangle(penRectangle, rectangles[i]);
 
-                graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-                graphics.DrawString(words[i], new Font("Times", 15), Brushes.Black, rectangles[i], sf);
+                graphics.DrawString(wordsDict.Keys.ToArray()[i], new Font("Times", 15 * wordsDict.Values.ToArray()[i]),
+                    Brushes.Black, rectangles[i], sf);
             }
 
             return new Bitmap(bmp);
@@ -56,9 +47,7 @@ namespace TagsCloudVisualization.Painter
         {
             if (rectangles.Max(rectangle => rectangle.X) > pictSize.Height ||
                 rectangles.Max(rectangle => rectangle.X) > pictSize.Width)
-            {
                 return false;
-            }
 
             return true;
         }

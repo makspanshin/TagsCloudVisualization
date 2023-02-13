@@ -1,2 +1,3 @@
 # TagsCloudVisualization
  
+![Screenshot](TagsCloud.png)

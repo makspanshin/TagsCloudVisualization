@@ -19,10 +19,8 @@ namespace TagsCloudVisualizationUnitTest
     {
         private const string PathFolderFailedTest = "FailedTest";
         private ArchimedesSpiral archimedesSpiral;
-        private Point centrPoint;
         private CircularCloudLayouter circularCloudLayouter;
         private PainterOfRectangles painterOfRectangles;
-        private IReaderWords readerWords;
         private List<Rectangle> rectangles;
         private ITagCloudSettings tagCloudSettings;
 

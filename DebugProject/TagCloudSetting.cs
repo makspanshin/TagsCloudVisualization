@@ -14,7 +14,7 @@ namespace DebugProject
         [Option('s', "fontSize", Default = 20, HelpText = "Set font size")]
         public int FontSize { get; set; }
 
-        [Option('b', "backgroundColor", Default = "#ffff6347", HelpText = "Set background color")]
+        [Option('b', "backgroundColor", Default = "#ff91d2ff", HelpText = "Set background color")]
         public string BackgroundColor { get; set; }
 
         [Option('i', "inputPath", Required = true, HelpText = "File path which provides words for tags")]

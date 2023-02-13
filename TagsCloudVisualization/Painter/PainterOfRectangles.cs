@@ -27,19 +27,17 @@ namespace TagsCloudVisualization.Painter
             using var graphics = Graphics.FromImage(bmp);
             using var penRectangle = new Pen(Color.Blue, .5f);
             using var sf = new StringFormat();
-
+            using var brush = new SolidBrush(ColorConvector.FromHex(tagCloudSettings.BackgroundColor));
             sf.Alignment = StringAlignment.Center;
             sf.LineAlignment = StringAlignment.Center;
-
-            using var brush = new SolidBrush(ColorConvector.FromHex(tagCloudSettings.BackgroundColor));
+            graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
             graphics.FillRectangle(brush, 0, 0, tagCloudSettings.ImageWidth, tagCloudSettings.ImageHeight);
 
+            var colorGenerator = new ColorGenerator();
             for (var i = 0; i < rectangles.Count; i++)
             {
-                graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-
                 graphics.DrawString(wordsDict.Keys.ToArray()[i], new Font("Times", tagCloudSettings.FontSize * wordsDict.Values.ToArray()[i]),
-                    Brushes.Black, rectangles[i], sf);
+                    new SolidBrush(colorGenerator.Get()), rectangles[i], sf);
             }
 
             return new Bitmap(bmp);

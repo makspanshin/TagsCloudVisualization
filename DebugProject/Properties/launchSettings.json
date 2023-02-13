@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "DebugProject": {
+      "commandName": "Project",
+      "commandLineArgs": "--imageHeight=1500 --imageWidth=1500 --fontSize=15  \r\n--inputPath=Words.txt"
+    },
+    "Профиль 1": {
+      "commandName": "Executable"
+    }
+  }
+}

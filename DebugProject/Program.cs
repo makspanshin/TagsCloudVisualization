@@ -12,14 +12,9 @@ namespace DebugProject
     {
         private static IContainer Container { get; set; }
 
-        private static void Main()
+        private static void Main(string[] args)
         {
-            var tagCloudSetting = new TagCloudSetting();
-            tagCloudSetting.ImageWidth = 1500;
-            tagCloudSetting.ImageHeight = 1500;
-            tagCloudSetting.PathToWords = "Words.txt";
-            tagCloudSetting.FontSize = 15;
-            tagCloudSetting.BackgroundColor = "#ffa4ffa4";
+            var tagCloudSetting = TagCloudSetting.Parse(args);
             Container = Configure(tagCloudSetting);
             Container.Resolve<ITagCloud>().Draw();
         }
